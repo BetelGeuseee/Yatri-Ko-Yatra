@@ -24,7 +24,7 @@ const Footer = ()=>{
         <div className='footer-link-wrapper'>
           <div class='footer-link-items'>
             <h2>About Us</h2>
-            <Link to='/sign-up'>How it works</Link>
+            <Link to='/signup'>How it works</Link>
             <Link to='/'>Testimonials</Link>
             <Link to='/'>Careers</Link>
             <Link to='/'>Investors</Link>
@@ -59,11 +59,11 @@ const Footer = ()=>{
         <div class='social-media-wrap'>
           <div class='footer-logo'>
             <Link to='/' className='social-logo'>
-              TRVL
-              <i class='fab fa-typo3' />
+              YKY
+              <i class='fa-solid fa-plane-departure' />
             </Link>
           </div>
-          <small class='website-rights'>TRVL © 2020</small>
+          <small class='website-rights'>YKY © 2022</small>
           <div class='social-icons'>
             <Link
               class='social-icon-link facebook'
