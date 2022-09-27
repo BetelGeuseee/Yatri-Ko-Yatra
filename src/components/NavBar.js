@@ -1,9 +1,12 @@
 import React,{useState,useEffect} from 'react';
+import { fire } from '../fire';
 import { Link } from 'react-router-dom';
+import Dummy from './Dummy';
 import Button from './Button';
 import './components_css/NavBar.css'
 
 const NavBar = ()=>{
+  const user = fire.auth().currentUser;
  const[click,setClick] = useState(false);
  const [button,setButton] = useState(true);
  const handleClick = ()=> {
@@ -50,15 +53,16 @@ return (
               </Link>
            </li>
            <li>
-              <Link to='/signup' className='nav-links-mobile' onClick={closeMobileMenu}> Sign Up
+              <Link to='/register' className='nav-links-mobile' onClick={closeMobileMenu}> Sign Up
               </Link>
            </li>
        </ul>
-         {button && <Button buttonStyle='btn--outline'>Sign UP</Button>}
+        {button && <Button buttonStyle='btn--outline'>Sign Up</Button>}
        </div>
     </nav>
   </>
 )
 }
+
 
 export default NavBar;

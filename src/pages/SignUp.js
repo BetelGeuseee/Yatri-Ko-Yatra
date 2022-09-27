@@ -1,6 +1,7 @@
 import React,{useState,useEffect}from 'react'
 import { useNavigate } from 'react-router-dom';
-import fire from '../fire';
+
+import { fire } from '../fire';
 import Home from './Home';
 import SignIn from './SignIn';
 import '../components/components_css/SignUp.css'
