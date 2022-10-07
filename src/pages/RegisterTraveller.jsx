@@ -26,8 +26,9 @@ if(uname.trim()!==0 && email.trim()!==0 && password.trim()!==0){
    console.log(obj);
 
    fire.auth().createUserWithEmailAndPassword(email,password).then((userCredentials)=>{
-        db.collection("travellers").add({ username : uname, email: email, password: password}).then((docRef)=>{
-            console.log(docRef.id)
+     
+       const userid = userCredentials.user.uid
+        db.collection("travellers").doc(userid).set({ username : uname, email: email, password: password}).then(()=>{
             navigate('/');
         }).catch((error)=>{
             const errormssg = error.message;

@@ -1,7 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import { fire } from '../fire';
 import { Link } from 'react-router-dom';
-import Dummy from './Dummy';
 import Button from './Button';
 import './components_css/NavBar.css'
 
