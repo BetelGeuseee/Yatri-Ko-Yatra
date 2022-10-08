@@ -1,0 +1,46 @@
+.create-blog-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.place{
+    margin-top: 50px;
+    width: 25rem;
+    height: 2rem;
+    border-width: 4px;
+    border-color: black;
+    padding: 5px;
+}
+
+.place-description{
+    margin-top: 30px;
+    border-width: 8px;
+    border-color: solid black;
+    border-radius: 20px;
+    padding: 4px;
+    resize: none;
+}
+
+.specific-detail{
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(2,minmax(240px,1fr));
+    gap: 2rem;
+}
+.things-no-do{
+    border-width: 4px;
+    border-color: black;
+    padding: 5px;
+}
+.specific-destination{
+
+  border-width: 4px;
+  border-color: black;
+  padding: 5px;    
+}
+.chooser{
+
+    size: 20px;
+    margin-top: 20px;
+}

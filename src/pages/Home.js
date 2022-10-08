@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Cards from '../components/Cards'
 import Footer from '../components/Footer'
 import { fire } from "../fire";
+var isLoggedIn = false;
 const Home =()=>{
   const navigate = useNavigate();
   const [userStatus,changeUserStatus] = useState(false);
@@ -21,12 +22,17 @@ const Home =()=>{
   fire.auth().onAuthStateChanged((user)=>{
 
     if(user){
+     
        changeUserStatus(true);
+       isLoggedIn=true;
+
     }else{
+     
        changeUserStatus(false);
+       isLoggedIn=false;
     }
   })
-
+console.log(isLoggedIn);
   const handleLogOut = () =>{
     fire.auth().signOut().then(() => {
        navigate('/signin')
@@ -45,4 +51,4 @@ const Home =()=>{
 
 }
 
-export default Home;
+export {Home,isLoggedIn};
