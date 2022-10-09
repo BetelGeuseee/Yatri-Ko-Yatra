@@ -1,6 +1,8 @@
-import firebase from 'firebase';
-import 'firebase/firestore'
-import 'firebase/storage'
+
+import {initializeApp} from 'firebase/app';
+import {getFirestore} from 'firebase/firestore';
+import {getStorage} from 'firebase/storage';
+import {getAuth} from 'firebase/auth';
 
 const firebaseConfig = {
 
@@ -20,8 +22,9 @@ const firebaseConfig = {
 
   };
 
-  const fire = firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
-  const store = firebase.storage();
-  export {fire,db,store};
+  const fire = initializeApp(firebaseConfig);
+  const db = getFirestore(fire);
+  const store = getStorage(fire);
+  const auth = getAuth(fire);
+  export {auth,db,store};
   

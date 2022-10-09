@@ -2,18 +2,23 @@ import React from 'react'
 import {BrowserRouter as Router,Routes,Route} from 'react-router-dom'
 import './App.css';
 import {Home} from './pages/Home';
-import fire from './fire';
 import NavBar from './components/NavBar';
 import Blogs from './pages/Blogs';
 import SignUp from './pages/SignUp'; 
 import Agencies from './pages/Agencies';
 import RegisterTraveller from './pages/RegisterTraveller';
 import Registration from './pages/Registration';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from './fire';
 import SignIn from './pages/SignIn';
 import CreateBlog from './pages/CreateBlog';
 
 
 function App() {
+ 
+  const [user,loading,error] = useAuthState(auth);
+  
+  console.log(user.uid);
 
   return (
      <>
@@ -27,7 +32,7 @@ function App() {
                  <Route path = '/register' element = {<Registration/>} />
                  <Route path = '/registertraveller' element = {<RegisterTraveller/>} />
                  <Route path = '/signin' element = {<SignIn/>} />
-                 <Route path= '/create-blog' element = {<CreateBlog/>}/>
+                 <Route path= '/create-blog' element = {<CreateBlog uuid={user}/>}/>
              </Routes>
        </Router>
      </>

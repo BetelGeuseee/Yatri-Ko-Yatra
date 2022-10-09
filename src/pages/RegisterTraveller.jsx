@@ -2,8 +2,10 @@ import React from "react";
 import '../components/components_css/RegisterTraveller.css'
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { fire } from "../fire";
+import { auth } from "../fire";
 import { db } from "../fire";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import {doc , setDoc} from 'firebase/firestore';
 
 const RegisterTraveller = ()=>{
 const navigate = useNavigate();
@@ -25,16 +27,19 @@ if(uname.trim()!==0 && email.trim()!==0 && password.trim()!==0){
    const obj = {uname,email,password}
    console.log(obj);
 
-   fire.auth().createUserWithEmailAndPassword(email,password).then((userCredentials)=>{
+   const data = {
+     username : uname, email: email, password: password
+   }
+
+   createUserWithEmailAndPassword(auth,email,password).then((userCredentials)=>{
      
        const userid = userCredentials.user.uid
-        db.collection("travellers").doc(userid).set({ username : uname, email: email, password: password}).then(()=>{
-            navigate('/');
-        }).catch((error)=>{
-            const errormssg = error.message;
-            alert(error.message);
-        })
-       
+       const docReference = doc(db,'travellers',userid);
+       setDoc(docReference,data).then((userRef)=>{
+          navigate('/');
+       }).catch((error)=>{
+          alert(error.message);
+       })    
    }).catch((error)=>{
        const errmssg = error.message;
        alert(errmssg);

@@ -11,6 +11,7 @@
     border-width: 4px;
     border-color: black;
     padding: 5px;
+    background-color: whitesmoke;
 }
 
 .place-description{
@@ -20,6 +21,7 @@
     border-radius: 20px;
     padding: 4px;
     resize: none;
+   background-color: whitesmoke;
 }
 
 .specific-detail{
@@ -27,20 +29,42 @@
     display: grid;
     grid-template-columns: repeat(2,minmax(240px,1fr));
     gap: 2rem;
+    background-color: whitesmoke;
 }
 .things-no-do{
     border-width: 4px;
     border-color: black;
     padding: 5px;
+    background-color: whitesmoke;
 }
 .specific-destination{
 
   border-width: 4px;
   border-color: black;
-  padding: 5px;    
+  padding: 5px;   
+  background-color: whitesmoke; 
 }
 .chooser{
 
-    size: 20px;
+   font-size: large;
     margin-top: 20px;
+    margin-left: 50px;
+    background-color: wheat;
+}
+.create-blog-container{
+    background-color: #eae2b7;
+    background-image: url('../components_css/backimage.jpg');
+}
+.top-title{
+    background-color: wheat;
+    border-radius: 30px;
+    padding: 4px;
+    margin-top: 7px;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: normal;
+
+}
+.just-a-span{
+    background-color: wheat;
+    font-size: large;
 }

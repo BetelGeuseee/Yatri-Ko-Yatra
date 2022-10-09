@@ -3,7 +3,9 @@ import '../components/components_css/Registration.css'
 import { useState } from "react";
 import {useNavigate} from "react-router-dom"
 import { db } from "../fire";
-import { fire } from "../fire";
+import { auth } from "../fire";
+import {doc,setDoc} from 'firebase/firestore';
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 
 const Registration = ()=>{
@@ -19,8 +21,26 @@ const [agencyName , setAgencyName] = useState('');
 const registerAgency = ()=>{
 const data = { agencyName : agencyName, agencyEmail: agencyEmail, password: password, agencyNumber: agencyNumber,
                agencyLocation: location }
- fire.auth().createUserWithEmailAndPassword(agencyEmail,password).then((userCredentials)=>{
-        db.collection('agencies').add(data).then((docRef)=>{
+ createUserWithEmailAndPassword(auth,agencyEmail,password).then((userCredentials)=>{
+
+
+        const userId = userCredentials.user.uid;
+        const docReference  = doc(db,'agencies',userId);
+
+         
+        setDoc(docReference, data).then((docRef)=>{
+            console.log(docRef.id);
+            navigate('/')
+        }).catch((error)=>{
+           alert(error.message)
+        })
+       
+     
+ }).catch((error)=>{
+    alert(error.message)
+ })
+}
+ /*  db.collection('agencies').add(data).then((docRef)=>{
             console.log(docRef.id)
              navigate('/')
         }).catch((error)=>{
@@ -30,8 +50,8 @@ const data = { agencyName : agencyName, agencyEmail: agencyEmail, password: pass
  }).catch((error)=>{
           const errorMsg  = error.message;
           alert(errorMsg);
- })
-}
+ }) */
+
 function handleClick(){
 navigate('/registertraveller')
 }

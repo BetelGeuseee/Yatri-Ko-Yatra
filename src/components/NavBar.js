@@ -1,11 +1,9 @@
 import React,{useState,useEffect} from 'react';
-import { fire } from '../fire';
 import { Link } from 'react-router-dom';
 import Button from './Button';
 import './components_css/NavBar.css'
 
 const NavBar = ()=>{
-  const user = fire.auth().currentUser;
  const[click,setClick] = useState(false);
  const [button,setButton] = useState(true);
  const handleClick = ()=> {

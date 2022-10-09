@@ -2,7 +2,8 @@ import React from "react";
 import '../components/components_css/SignIn.css'
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { fire } from "../fire";
+import { auth } from "../fire";
+import { signInWithEmailAndPassword } from "firebase/auth";
 const SignIn = () =>{
 const navigate = useNavigate();
 const [email,setEmail] = useState('');
@@ -10,7 +11,7 @@ const [password,setPassword]=useState('');
 
 
    function handleClickOne(){
-    fire.auth().signInWithEmailAndPassword(email,password).then((userDetails)=>{
+    signInWithEmailAndPassword(auth,email,password).then((userDetails)=>{
           navigate('/')
     }).catch((error)=>{
         const err = error.message;

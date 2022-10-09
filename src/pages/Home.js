@@ -4,7 +4,9 @@ import HeroSection from '../components/HeroSection'
 import { useNavigate } from "react-router-dom";
 import Cards from '../components/Cards'
 import Footer from '../components/Footer'
-import { fire } from "../fire";
+import { auth } from "../fire";
+import { signOut } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 var isLoggedIn = false;
 const Home =()=>{
   const navigate = useNavigate();
@@ -19,7 +21,7 @@ const Home =()=>{
     } 
   }); */
 
-  fire.auth().onAuthStateChanged((user)=>{
+  onAuthStateChanged(auth,(user)=>{
 
     if(user){
      
@@ -34,7 +36,7 @@ const Home =()=>{
   })
 console.log(isLoggedIn);
   const handleLogOut = () =>{
-    fire.auth().signOut().then(() => {
+    signOut(auth).then(() => {
        navigate('/signin')
     }).catch((error) => {
       alert('Could not signOut right now. Try again later!!!')

@@ -1,13 +1,13 @@
 import React, {useState} from "react";
 import '../forblogs/TopComponent.css'
 import { isLoggedIn } from "../../pages/Home";
-import { fire } from "../../fire";
+import { auth } from "../../fire";
+import { onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 const TopComponent = ()=>{
   const [userStatus,changeUserStatus] = useState(false);
   const navigate = useNavigate();
-  fire.auth().onAuthStateChanged((user)=>{
- 
+  onAuthStateChanged(auth,(user)=>{
     if(user){
 
       changeUserStatus(true);

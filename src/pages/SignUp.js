@@ -1,7 +1,10 @@
 import React,{useState,useEffect}from 'react'
 import { useNavigate } from 'react-router-dom';
 
-import { fire } from '../fire';
+import { auth } from '../fire';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { signOut, onAuthStateChanged } from 'firebase/auth';
 import Home from './Home';
 import SignIn from './SignIn';
 import '../components/components_css/SignUp.css'
@@ -26,7 +29,7 @@ const SignUp = ()=>{
   }
   const handleLogin =()=>{
     clearErrors();
-       /* fire.auth().signInWithEmailAndPassword(email,password).catch(err => {
+       signInWithEmailAndPassword(auth,email,password).catch(err => {
           switch(err.code){
             case "auth/invalid-email":
             case "auth/user-disabled":
@@ -39,18 +42,18 @@ const SignUp = ()=>{
           }
         }).then(()=>{
           navigate('/')
-        }) */
-        fire.auth().signInWithEmailAndPassword(email,password).then((userCredential)=>{
+        }) 
+       signInWithEmailAndPassword(auth,email,password).then((userCredential)=>{
           navigate('/');
         }).catch((error)=>{
           const errMsg = error.message;
           alert(errMsg);
         })
-  }
+      }
 
   const handleSignUp = ()=>{
      clearErrors();
-   /* fire.auth().createUserWithEmailAndPassword(email,password)
+   createUserWithEmailAndPassword(auth,email,password)
     .catch(err => {
       switch(err.code){
         case "auth/email-already-in-use":
@@ -62,8 +65,8 @@ const SignUp = ()=>{
           break;    
       }
    
-    }); */
-    fire.auth().createUserWithEmailAndPassword(email, password)
+    }); 
+  createUserWithEmailAndPassword(auth,email, password)
   .then((userCredential) => {
     // Signed in 
     const user = userCredential.user;
@@ -80,10 +83,10 @@ const SignUp = ()=>{
   }
 
    const handleLogout = ()=>{
-    fire.auth().signOut();
+    signOut(auth);
    }
    const authListener = ()=>{
-    fire.auth().onAuthStateChanged((user)=>{
+    onAuthStateChanged(auth,(user)=>{
       if(user){
         clearInputs();
         setUser(user);
@@ -107,4 +110,4 @@ const SignUp = ()=>{
   );
 
 }
-export default SignUp;
+export default SignUp; 
