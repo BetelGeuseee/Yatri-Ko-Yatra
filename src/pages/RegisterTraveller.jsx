@@ -6,6 +6,7 @@ import { auth } from "../fire";
 import { db } from "../fire";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import {doc , setDoc} from 'firebase/firestore';
+import { updateProfile } from "firebase/auth";
 
 const RegisterTraveller = ()=>{
 const navigate = useNavigate();
@@ -34,12 +35,17 @@ if(uname.trim()!==0 && email.trim()!==0 && password.trim()!==0){
    createUserWithEmailAndPassword(auth,email,password).then((userCredentials)=>{
      
        const userid = userCredentials.user.uid
-       const docReference = doc(db,'travellers',userid);
-       setDoc(docReference,data).then((userRef)=>{
-          navigate('/');
+       updateProfile(auth.currentUser,{displayName: uname}).then((profile)=>{
+        const docReference = doc(db,'travellers',userid);
+        setDoc(docReference,data).then((userRef)=>{
+           navigate('/');
+        }).catch((error)=>{
+           alert(error.message);
+        })  
        }).catch((error)=>{
           alert(error.message);
-       })    
+       })
+        
    }).catch((error)=>{
        const errmssg = error.message;
        alert(errmssg);

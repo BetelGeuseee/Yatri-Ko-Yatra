@@ -4,6 +4,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { store } from "../fire";
 import { db } from "../fire";
+import { doc, setDoc } from "firebase/firestore";
+import { ref } from "firebase/storage";
+import { useNavigate } from "react-router-dom";
+import { uploadBytes, getDownloadURL } from "firebase/storage";
 
 import { auth } from "../fire";
 const CreateBlog = (props) => {
@@ -14,8 +18,13 @@ const CreateBlog = (props) => {
   const [things, setThings] = useState('');
   const [specific, setSpecific] = useState('');
   const [imageFile, setImageFile] = useState(null);
+  const navigate = useNavigate();
+ 
+ 
 
- console.log(props.uuid.uid);
+ const username = props.userId.displayName;
+ const currentUserId = props.userId.uid;
+ 
 
   const handleImageFile = (e) => {
 
@@ -24,21 +33,40 @@ const CreateBlog = (props) => {
   /*console.log(props.userId); */
   const uploadBlog = () =>{
 
-
-
+     
         if(imageFile==null)
           return;
+          
 
-        const imgRef = store.ref().child(`images/${imageFile.name}`);
-        imgRef.put(imageFile).then((snapshot) =>{
-            toast('Image Uploaded Successfully')
-            imgRef.getDownloadURL().then((url)=>{
+      const id = toast.loading("Your Blog is Uploading");
+
+        const imgRef = ref(store,`images/${imageFile.name}`);
+        uploadBytes(imgRef,imageFile).then((snapshot) =>{
+            getDownloadURL(imgRef).then((url)=>{
                 const imgUrl = url;
-                db.collection('blogs')
+
+                  const dataObject = {
+                    date: new Date(),
+                    description : placeDesc,
+                    imageUrl : imgUrl,
+                    place: placeName,
+                    sdtv: specific,
+                    title: title,
+                    tntd: things,
+                    writer: username
+                  } 
+                const docRef = doc(db,'blogs',`${currentUserId}/blogfolder/${new Date()}`)
+            
+                setDoc(docRef,dataObject).then((userRef)=>{
+                  toast.update(id, { render: "Blog Uploaded Successfully", type: "success", isLoading: false });
+                  navigate('/blogs');
+               }).catch((error)=>{
+                  alert(error.message);
+               })  
 
             })
         }).catch((error)=>{
-            alert('An Error Occured!!!')
+            alert(error.message);
         })
 
   }

@@ -18,7 +18,7 @@ function App() {
  
   const [user,loading,error] = useAuthState(auth);
   
-  console.log(user.uid);
+ // console.log(user.uid);
 
   return (
      <>
@@ -32,7 +32,7 @@ function App() {
                  <Route path = '/register' element = {<Registration/>} />
                  <Route path = '/registertraveller' element = {<RegisterTraveller/>} />
                  <Route path = '/signin' element = {<SignIn/>} />
-                 <Route path= '/create-blog' element = {<CreateBlog uuid={user}/>}/>
+                 <Route path= '/create-blog' element = {<CreateBlog userId={user}/>}/>
              </Routes>
        </Router>
      </>
