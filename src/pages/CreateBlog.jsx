@@ -4,12 +4,13 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { store } from "../fire";
 import { db } from "../fire";
-import { doc, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, setDoc} from "firebase/firestore";
 import { ref } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 import { uploadBytes, getDownloadURL } from "firebase/storage";
 
 import { auth } from "../fire";
+import Blogs from "./Blogs";
 const CreateBlog = (props) => {
 
   const [title, setTitle] = useState('');
@@ -53,16 +54,25 @@ const CreateBlog = (props) => {
                     sdtv: specific,
                     title: title,
                     tntd: things,
-                    writer: username
+                    writer: username,
+                    writerId: currentUserId
                   } 
-                const docRef = doc(db,'blogs',`${currentUserId}/blogfolder/${new Date()}`)
+            //    const docRef = doc(db,'blogs',`${currentUserId}/blogfolder/${new Date()}`)
+           // const docRef = doc(db,'blogs',currentUserId);
+           const docRef = collection(db,'blogs')
+           addDoc(docRef,dataObject).then((userRef)=>{
+            toast.update(id, { render: "Blog Uploaded Successfully", type: "success", isLoading: false });
+            navigate('/blogs');
+           }).catch((error)=>{
+            alert(error.message);
+           })
             
-                setDoc(docRef,dataObject).then((userRef)=>{
+               /* setDoc(docRef,dataObject,{ merge: true }).then((userRef)=>{
                   toast.update(id, { render: "Blog Uploaded Successfully", type: "success", isLoading: false });
                   navigate('/blogs');
                }).catch((error)=>{
-                  alert(error.message);
-               })  
+                  
+               })  */
 
             })
         }).catch((error)=>{

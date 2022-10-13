@@ -15,6 +15,7 @@
 .blog-cardd{ 
     box-shadow: 0 14px 18px 0 rgba(0, 0, 0, 0.2);
     border-color: 10px solid black;
+    height:fit-content;
    
 }
 .blog-cardd:hover{
@@ -24,7 +25,7 @@
 
 .ima{
     width: 100%;
-    max-height: 290px;
+    max-height: 200px;
     object-fit: cover;
    
 }
@@ -37,16 +38,20 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-top: 2px;
+    margin-top: 12px;
     padding: 5px;
 }
+.place-title{
+    margin-left: 5px;
+}
 .place-name{
-    margin-top: 2.5px;
+    margin-top: 3.5px;
     background-color:coral;
     display: inline-block;
     border-radius: 15px;
-    font-size: 20px;
+    font-size: 15px;
     padding: 5px;
+    margin-left: 2px;
     font-style: oblique;
 }
 .place-desc{
@@ -57,5 +62,35 @@
 
 button:hover{
     opacity: 0.8;
+}
+.main-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.top{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    padding: 1rem;
+    background-color: rgb(161, 174, 174);
+}
+
+.box-search{
+
+    margin-top: 1rem;
+    width: 50rem;
+    height:2rem;
+    border-radius: 0.4rem solid black;
+}
+.box-and-button{
+    display: grid;
+    grid-template-columns: auto 200px 200px;
+    gap: 2rem;
+}
+.upload-date{
+    font-weight: lighter;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }
 
