@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,700&family=Roboto&display=swap');
+
+.right-view-container{
+   
+    width: 700px;
+}
+.author-title{
+   font-family: 'Merriweather', serif;
+   text-align: center;
+}
+
+.author-profile-image{
+
+    border-radius: 50%;
+    height: 90px;
+    width: 90px;
+}
+
+.image-and-description{
+    display: flex;
+    flex-direction: row;
+    margin-top: 12px;
+}
+
+.name-email{
+    margin-left: 4px;
+    margin-top: 5px;
+    padding: 8px;
+}
+
+.for-blog-card{
+    display: grid;
+    grid-template-rows: auto auto;
+    row-gap: 50px;
+    margin-top: 18px;
+}
+.right-view-card-img{
+     height: 100px;
+     width: 100px;
+}
+.right-view-card{
+    display: flex;
+    flex-direction: row;
+    padding: 8px;
+    box-shadow: 0 18px 26px 0 rgba(0, 0, 0, 0.6);
+    border-color: 10px solid black;
+    height:fit-content;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.para-make{
+    width: 500px;
+}
+.right-card-description{
+    margin-left: 12px;
+}
+.right-para-style{
+    font-size: small;
+}
+.right-view-card:hover{
+    transform: scale(1.1);
+   transition: all 0.2s linear;
+}

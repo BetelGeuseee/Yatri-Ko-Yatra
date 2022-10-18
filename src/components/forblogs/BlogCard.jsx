@@ -7,6 +7,7 @@ import { collection } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../fire";
+import { Link } from "react-router-dom";
 const BlogCard = ()=>{
 
   const [blogs,setBlogs] = useState([]);
@@ -37,6 +38,7 @@ const BlogCard = ()=>{
    });
 },[])  
 
+
 const handleCreateBlog = ()=>{
 
   navigate('/create-blog');
@@ -52,7 +54,9 @@ function renderFunction(post){
          
       <div className="blog-cardd">
            
+           <Link to={`/view-blog/${post.id}`}>
            <img className="ima" src={post.imageUrl}/>
+           </Link>
            
             <h5 className="place-name">{post.place}</h5>
 
@@ -63,7 +67,9 @@ function renderFunction(post){
             <p className="upload-date">{withSlashes}</p>
           <h3 className="writer-name">{post.writer}</h3>
             </div>
+            <Link to={`/view-blog/${post.id}`}>
             <button type="button"> Read More </button>
+            </Link>
         </div>
     
     )

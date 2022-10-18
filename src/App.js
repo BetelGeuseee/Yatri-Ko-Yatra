@@ -12,6 +12,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from './fire';
 import SignIn from './pages/SignIn';
 import CreateBlog from './pages/CreateBlog';
+import ViewBlog from './pages/ViewBlog';
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
                  <Route path = '/register' element = {<Registration/>} />
                  <Route path = '/registertraveller' element = {<RegisterTraveller/>} />
                  <Route path = '/signin' element = {<SignIn/>} />
+                 <Route path = '/view-blog/:id' element = {<ViewBlog/>} />
                  <Route path= '/create-blog' element = {<CreateBlog userId={user}/>}/>
              </Routes>
        </Router>
