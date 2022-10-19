@@ -5,21 +5,23 @@
   /*  background-color: gray;  */
     margin-left: 8px;
     padding: 10px;
-    background-color: #F0EAD6
+    background-color: #F0EAD6;
+    width: 58%;
 }
 
 .view-description{
  /*  background-color: aqua; */
     width: 1100px;
+    
 }
 
 .description-para{
     margin-top: 6px;
     font-size: medium;
-    word-wrap: break-word;
     font-family: 'Roboto', sans-serif;
     word-spacing: 1px;
     line-height: 30px;
+   
 }
 
 .things-para{

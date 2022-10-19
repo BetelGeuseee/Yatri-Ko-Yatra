@@ -4,6 +4,7 @@
   height: 400px;
   object-fit: fill;
   border: 2px solid black;
+
 }
 
 .component-container{
@@ -11,4 +12,12 @@
     flex-direction: row;
     justify-content: space-between;
     margin-right: 8px;
+} 
+
+.spinner-div{
+  display: flex;
+  justify-content: center;
+  margin-top: 400px;
 }
+ 
+ 
