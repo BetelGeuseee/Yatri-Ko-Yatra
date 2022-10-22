@@ -7,8 +7,7 @@
     row-gap: 1.5rem;
     margin-left: 1rem;
     margin-right: 1rem;
-   background-color: whitesmoke;
-
+   background-color: whitesmoke; 
  
 }
 
@@ -23,9 +22,13 @@
     transition: all 0.2s linear;
 }
 
+.blog-image{
+    height: 200px;
+}
+
 .ima{
     width: 100%;
-    max-height: 200px;
+    height: 100%;
     object-fit: cover;
    
 }
@@ -54,6 +57,11 @@
     margin-left: 2px;
     font-style: oblique;
 }
+.delete-style{
+    cursor: pointer;
+    color: white;
+    background-color: black;
+}
 .place-desc{
   font-size: small;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -66,6 +74,7 @@ button:hover{
 .main-container{
     display: flex;
     flex-direction: column;
+    
 }
 
 .top{

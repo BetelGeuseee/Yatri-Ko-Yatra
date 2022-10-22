@@ -6,20 +6,56 @@ import { onSnapshot, orderBy, query } from "firebase/firestore";
 import { collection } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
+import { doc, deleteDoc , getDoc} from "firebase/firestore";
+import { store } from "../../fire";
+import { refFromURL ,deleteObject} from "firebase/storage";
+import { ref } from "firebase/storage";
 import { auth } from "../../fire";
 import { Link } from "react-router-dom";
+
+
+const DeleteComponent = (props) =>{
+
+  const postid = props.postId;
+
+  function deleteBlog(){
+    
+
+    getDoc(doc(db,'blogs',postid)).then((docRef)=>{
+      const imgUrl= docRef.data().imageUrl;
+      const imgRef = ref(store,imgUrl);
+      
+      deleteObject(imgRef).then(()=>{
+        deleteDoc(doc(db,'blogs',postid)).then(()=>{
+          alert('succesfully deleted your blog')
+    
+        }).catch((error)=>{
+           alert('Error occured');
+        })
+           
+      })
+    })
+   
+    
+       
+  }
+  return (<div>
+    <h4 className="delete-style" onClick={deleteBlog}>DELETE</h4>
+  </div>)
+}
 const BlogCard = ()=>{
 
   const [blogs,setBlogs] = useState([]);
   const [userStatus,changeUserStatus] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
+  const [userId,setUserId] = useState();
  
   useEffect(()=>{
 
     onAuthStateChanged(auth,(user)=>{
       if(user){
-  
+        setUserId(user.uid);
         changeUserStatus(true);
       }else{
         changeUserStatus(false);
@@ -43,6 +79,7 @@ const handleCreateBlog = ()=>{
 
   navigate('/create-blog');
 }
+
 function renderFunction(post){
 
   const year = post.date.toDate().getFullYear();
@@ -53,10 +90,13 @@ function renderFunction(post){
     
          
       <div className="blog-cardd">
-           
+
+
+        <div className="blog-image">   
            <Link to={`/view-blog/${post.id}`}>
            <img className="ima" src={post.imageUrl}/>
            </Link>
+        </div>
            
             <h5 className="place-name">{post.place}</h5>
 
@@ -66,7 +106,9 @@ function renderFunction(post){
             <div className="info">
             <p className="upload-date">{withSlashes}</p>
           <h3 className="writer-name">{post.writer}</h3>
+          {userId === post.writerId && <DeleteComponent postId = {post.id}/>}
             </div>
+           
             <Link to={`/view-blog/${post.id}`}>
             <button type="button"> Read More </button>
             </Link>

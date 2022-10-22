@@ -14,14 +14,15 @@ const day = props.blogg.date.toDate().getDate();
 const withSlashes = [year, month, day].join('/');  */
  
 
-
     return (<div className="view-container">
 
        <h1 className="blog-title"> {props.blogg.title}</h1>
        <div className="date-author">
        <p className="date-style"></p>
-       <h3 className="author-name"> Author = {props.blogg.writer}</h3>
+       <h3 className="author-name"> Agency = {props.blogg.agencyName}</h3>
+      
        </div>
+       <h4>Budget = {props.blogg.budget}</h4>
        <h2 className="place-style"> Place = {props.blogg.place}</h2><br/>
 
     <div className="view-description">
@@ -38,7 +39,8 @@ const withSlashes = [year, month, day].join('/');  */
         {props.blogg.sdtv}
         </p>
     </div>
-
+ 
+ 
 
         
     </div>)

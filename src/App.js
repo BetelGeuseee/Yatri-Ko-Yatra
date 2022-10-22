@@ -19,7 +19,7 @@ function App() {
  
   const [user,loading,error] = useAuthState(auth);
   
- // console.log(user.uid);
+ //console.log(user.uid);
 
   return (
      <>

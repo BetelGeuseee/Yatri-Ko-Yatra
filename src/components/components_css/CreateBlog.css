@@ -23,6 +23,19 @@
     resize: none;
    background-color: whitesmoke;
 }
+.select-style{
+    width:400px;
+    height: 30px;
+    color: blue;
+    margin-top: 19px;
+    font-size: large;
+}
+.budget-style{
+    margin-top: 20px;
+    width: 150px;
+    height: 30px;
+    font-size: large;
+}
 
 .specific-detail{
     margin-top: 30px;

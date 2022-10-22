@@ -7,14 +7,16 @@ import { db } from "../fire";
 import { doc,getDoc } from "firebase/firestore";
 import { useEffect,useState } from "react";
 import { FidgetSpinner } from  'react-loader-spinner'
+import { collection, query, onSnapshot, orderBy } from "firebase/firestore";
 
 const ViewBlog = ()=>{
 
     const {id} = useParams();
     const [blog,setBlog] = useState({});
     const [loadingState,setLoadingState] = useState(false);
-    const [fourBlog, setFourBlog] = useState([]);
-    const blogArr = [];
+    const [article, setArticle] = useState([]);
+
+  
 
    
     useEffect(()=>{
@@ -26,12 +28,25 @@ const ViewBlog = ()=>{
       }
       getBlog();
 
+      const blogRef  = collection(db,'blogs');
+      const q = query(blogRef,orderBy('date','desc'))
+      onSnapshot(q,(snapshot)=>{
+        const articles = snapshot.docs.map((doc)=>({
+          id: doc.id,
+          ...doc.data(),
+        }))
+        setArticle(articles);
+      })
+     
+
     },[id]) 
+    
+    
 
     
 
     return (
-      <SpinnerComponent loadingState = {loadingState} blog = {blog} />
+      <SpinnerComponent loadingState = {loadingState} blog = {blog} rightBlog = {article} param={id} />
       )
          
 }
@@ -39,7 +54,7 @@ const ViewBlog = ()=>{
 const SpinnerComponent = (props)=>{
 
   let checker = props.loadingState;
-  console.log(checker);
+  
 
   if(checker){
     return (<div className="main-bucket">
@@ -50,7 +65,7 @@ const SpinnerComponent = (props)=>{
    
   <div className="component-container">
       <ViewComponent blogg={props.blog} />
-       <RightViewComponent />
+       <RightViewComponent rightArticle={props.rightBlog} param = {props.param} writer={props.blog.writer} mail = {props.blog.email}/>
   </div>
 </div>)
   }

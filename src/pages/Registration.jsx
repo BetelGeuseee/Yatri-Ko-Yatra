@@ -29,7 +29,6 @@ const data = { agencyName : agencyName, agencyEmail: agencyEmail, password: pass
 
          
         setDoc(docReference, data).then((docRef)=>{
-            console.log(docRef.id);
             navigate('/')
         }).catch((error)=>{
            alert(error.message)

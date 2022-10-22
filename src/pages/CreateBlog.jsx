@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import '../components/components_css/CreateBlog.css'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { store } from "../fire";
 import { db } from "../fire";
-import { addDoc, collection, doc, setDoc} from "firebase/firestore";
+import { addDoc, collection, query,onSnapshot, orderBy} from "firebase/firestore";
 import { ref } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 import { uploadBytes, getDownloadURL } from "firebase/storage";
 
 import { auth } from "../fire";
 import Blogs from "./Blogs";
+
 const CreateBlog = (props) => {
 
   const [title, setTitle] = useState('');
@@ -20,13 +21,29 @@ const CreateBlog = (props) => {
   const [specific, setSpecific] = useState('');
   const [imageFile, setImageFile] = useState(null);
   const navigate = useNavigate();
- 
+  const [selectValue, setSelectValue] = useState('');
+  const [agency, setAgency] = useState([]);
+  const [budget, setBudget] = useState();
  
 
  const username = props.userId.displayName;
  const currentUserId = props.userId.uid;
+ const email = props.userId.email;
  
+ useEffect(()=>{
 
+  const agencyRef  = collection(db,'agencies');
+  
+  onSnapshot(agencyRef,(snapshot)=>{
+   const agencies = snapshot.docs.map((doc)=>({
+     id: doc.id,
+     ...doc.data(),
+   }));
+   setAgency(agencies);
+  });
+
+ },[])
+ 
   const handleImageFile = (e) => {
 
     setImageFile(e.target.files[0]);
@@ -55,7 +72,10 @@ const CreateBlog = (props) => {
                     title: title,
                     tntd: things,
                     writer: username,
-                    writerId: currentUserId
+                    writerId: currentUserId,
+                    agencyName: selectValue,
+                    budget: budget,
+                    email:email
                   } 
             //    const docRef = doc(db,'blogs',`${currentUserId}/blogfolder/${new Date()}`)
            // const docRef = doc(db,'blogs',currentUserId);
@@ -81,6 +101,13 @@ const CreateBlog = (props) => {
 
   }
 
+  const renderFunction = (agencyObj)=>{
+
+    return (<option>
+      {agencyObj.agencyName}
+    </option>)
+  }
+ 
   return (<div className="create-blog-container">
 
     <h1 className="top-title">Create Your Own Blog</h1>
@@ -101,6 +128,12 @@ const CreateBlog = (props) => {
     <label> <span className="just-a-span">Select An Image For Upload.....</span>
       <input type="file" className="chooser" accept="image/*" onChange={handleImageFile} />
     </label>
+    <select className="select-style" onChange={(e)=> setSelectValue(e.target.value)}>
+      Choose Your Agency
+     {agency.map(renderFunction)}
+    </select>
+
+    <input className="budget-style" type="number" placeholder="Enter Budget" onChange = {(e)=> setBudget(e.target.value)}/>
     <button type="button" onClick={uploadBlog} style={{ marginTop: "20px" }}> Upload Blog
     </button>
     <ToastContainer />
