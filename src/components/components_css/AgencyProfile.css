@@ -1,0 +1,122 @@
+.main-div-container{
+    display: flex;
+    flex-direction: row;
+    background-color: grey;
+    height: 1000px;
+   
+    padding: 38px;
+}
+
+.left-profile-container{
+    background-color:  #F0EAD6;
+  
+    height: fit-content;
+    box-shadow: 0 18px 24px 0 rgba(0, 0, 0, 0.6);
+    border-color: 10px solid black;
+    border-radius: 14px;
+    width: 600px;
+}
+.desc{
+    font-size: medium;
+    font-weight: lighter;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.right-profile-container{
+    background-color: #F0EAD6;
+    border-radius: 14px;
+    height: fit-content;
+    box-shadow: 0 18px 24px 0 rgba(0, 0, 0, 0.6);
+    border-color: 10px solid black;
+    width: 1400px;
+    height: 735px;    
+    margin-left: 28px;
+    overflow-y: scroll;
+    overflow-x:visible;
+}
+.feedback-head{
+    margin-top: 8px;
+}
+
+.agency-profile-img-container{
+    width: 100%;
+    padding: 8px;
+    margin: auto;
+    display: block;
+
+}
+.agency-profile-image{
+    width: 100%;
+    height: 200px;
+}
+
+.feedback-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+   
+    margin-top: 8px;
+}
+.comments-style  {
+    height: 50px;
+    padding: 8px;
+}
+
+.yolo{
+    margin-top: 10px;
+   
+}
+.comment-container{
+    background-color:  	#F3E5AB;
+    padding: 8px;
+    margin-top: 18px;
+}
+
+.search-package{
+    background-color:#FFDEAD;
+    border-radius: 20px;
+    padding: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+}
+.search-package-box{
+    width: 100%;
+    border-radius: 20px;
+    height: 50px;
+    padding: 8px;
+}
+.packages-cards{
+    display: grid;
+    grid-template-columns: repeat(4,minmax(300px,1fr));
+    padding: 28px;
+    row-gap: 2.5rem;
+}
+.p-cards{
+    background-color: white;
+    height: fit-content;
+    width: 150px;
+    box-shadow: 0 18px 24px 0 rgba(0, 0, 0, 0.6);
+    border-color: 10px solid black;
+    padding: 2px;
+}
+.p-cards:hover{
+    transform: scale(1.1);
+    transition: all 0.2s linear;
+    cursor: pointer;
+}
+.package-tag{
+    margin-top: 3.5px;
+    background-color:coral;
+    display: inline-block;
+    border-radius: 15px;
+    font-size: 15px;
+    padding: 5px;
+    margin-left: 2px;
+    font-style: oblique;
+}
+.see-more-button{
+    margin-top: 8px;
+
+}
