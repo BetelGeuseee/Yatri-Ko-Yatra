@@ -2,11 +2,13 @@ import React from "react";
 import '../components/components_css/Registration.css'
 import { useState } from "react";
 import {useNavigate} from "react-router-dom"
-import { db } from "../fire";
+import { db, store } from "../fire";
 import { auth } from "../fire";
 import {doc,setDoc} from 'firebase/firestore';
 import { createUserWithEmailAndPassword } from "firebase/auth";
-
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Registration = ()=>{
 
@@ -17,39 +19,37 @@ const [password,setPassword] = useState('');
 const [agencyNumber, setNumber] = useState('');
 const [location,setLocation] = useState('');
 const [agencyName , setAgencyName] = useState('');
+const [imageFile, setImageFile] = useState(null);
+const [imgUrl ,setImageUrl] = useState('');
 
 const registerAgency = ()=>{
-const data = { agencyName : agencyName, agencyEmail: agencyEmail, password: password, agencyNumber: agencyNumber,
-               agencyLocation: location }
+const id = toast.loading("Registering Agency...Please Wait!!!");
+
  createUserWithEmailAndPassword(auth,agencyEmail,password).then((userCredentials)=>{
 
+    if(imageFile==null)
+      return;
 
         const userId = userCredentials.user.uid;
         const docReference  = doc(db,'agencies',userId);
-
-         
-        setDoc(docReference, data).then((docRef)=>{
-            navigate('/')
-        }).catch((error)=>{
-           alert(error.message)
-        })
-       
-     
+        
+        const imgRef = ref(store,`images/${imageFile.name}`);
+         uploadBytes(imgRef,imageFile).then((snapshot)=>{
+            getDownloadURL(imgRef).then((url)=>{
+                const data = { agencyName : agencyName, agencyEmail: agencyEmail, password: password, agencyNumber: agencyNumber,
+                    agencyLocation: location, profileImage: url, rating: 0}
+                       setDoc(docReference, data).then((docRef)=>{
+                       toast.update(id, { render: "Blog Uploaded Successfully", type: "success", isLoading: false });
+                       navigate('/')
+                }).catch((error)=>{
+                   alert(error.message)
+                })
+            })
+         })
  }).catch((error)=>{
     alert(error.message)
  })
 }
- /*  db.collection('agencies').add(data).then((docRef)=>{
-            console.log(docRef.id)
-             navigate('/')
-        }).catch((error)=>{
-            const errorMsg = error.message;
-            alert(errorMsg);
-        })
- }).catch((error)=>{
-          const errorMsg  = error.message;
-          alert(errorMsg);
- }) */
 
 function handleClick(){
 navigate('/registertraveller')
@@ -57,6 +57,11 @@ navigate('/registertraveller')
 function handleClickTwo(){
     navigate('/signin')
 }
+
+const handleImageFile = (e) => {
+
+    setImageFile(e.target.files[0]);
+  }
     return (<div className="main_container">
      
       <form className="container">
@@ -82,10 +87,14 @@ function handleClickTwo(){
             Password:
             <input type="password" name="password" onChange={(e)=>setPassword(e.target.value)}/>
         </label>
+        <label> Select Profile Image:
+             <input type="file" className="chooser" accept="image/*" onChange={handleImageFile} />
+        </label>
         <button type="button" onClick={registerAgency}>Register</button>
         <button type="button" onClick={handleClick}>Register As A Traveller</button>
         <button type="button" onClick={handleClickTwo}>Already Have An Account? Sign In.</button>
       </form>
+      <ToastContainer />
      
     </div>)
 }

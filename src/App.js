@@ -13,6 +13,7 @@ import { auth } from './fire';
 import SignIn from './pages/SignIn';
 import CreateBlog from './pages/CreateBlog';
 import ViewBlog from './pages/ViewBlog';
+import AgencyProfile from './pages/AgencyProfile';
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
                  <Route path = '/signin' element = {<SignIn/>} />
                  <Route path = '/view-blog/:id' element = {<ViewBlog/>} />
                  <Route path= '/create-blog' element = {<CreateBlog userId={user}/>}/>
+                 <Route path='/agency-profile/:id' element = {<AgencyProfile/>} />
              </Routes>
        </Router>
      </>

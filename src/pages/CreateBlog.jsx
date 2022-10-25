@@ -100,6 +100,7 @@ const CreateBlog = (props) => {
         })
 
   }
+  console.log(selectValue);
 
   const renderFunction = (agencyObj)=>{
 
@@ -130,6 +131,7 @@ const CreateBlog = (props) => {
     </label>
     <select className="select-style" onChange={(e)=> setSelectValue(e.target.value)}>
       Choose Your Agency
+      <option value="none" selected disabled hidden>Select an Option</option>
      {agency.map(renderFunction)}
     </select>
 
