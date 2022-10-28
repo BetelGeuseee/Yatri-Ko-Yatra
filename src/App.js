@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {BrowserRouter as Router,Routes,Route} from 'react-router-dom'
 import './App.css';
 import {Home} from './pages/Home';
@@ -16,11 +16,13 @@ import ViewBlog from './pages/ViewBlog';
 import AgencyProfile from './pages/AgencyProfile';
 
 
+
 function App() {
  
   const [user,loading,error] = useAuthState(auth);
-  
+
  //console.log(user.uid);
+ 
 
   return (
      <>
@@ -36,7 +38,7 @@ function App() {
                  <Route path = '/signin' element = {<SignIn/>} />
                  <Route path = '/view-blog/:id' element = {<ViewBlog/>} />
                  <Route path= '/create-blog' element = {<CreateBlog userId={user}/>}/>
-                 <Route path='/agency-profile/:id' element = {<AgencyProfile/>} />
+                 <Route path='/agency-profile/:id' element = {<AgencyProfile userId ={user}/>} />
              </Routes>
        </Router>
      </>
