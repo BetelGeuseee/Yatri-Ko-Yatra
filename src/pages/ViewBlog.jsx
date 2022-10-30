@@ -65,7 +65,7 @@ const SpinnerComponent = (props)=>{
    
   <div className="component-container">
       <ViewComponent blogg={props.blog} />
-       <RightViewComponent rightArticle={props.rightBlog} param = {props.param} writer={props.blog.writer} mail = {props.blog.email}/>
+       <RightViewComponent rightArticle={props.rightBlog} param = {props.param} writer={props.blog.writer} mail = {props.blog.email} imgUrl={props.blog.travellerImage}/>
   </div>
 </div>)
   }

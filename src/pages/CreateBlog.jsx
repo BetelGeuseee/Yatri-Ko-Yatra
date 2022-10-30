@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { store } from "../fire";
 import { db } from "../fire";
-import { addDoc, collection, query,onSnapshot, orderBy} from "firebase/firestore";
+import { addDoc, collection, query,onSnapshot, orderBy,doc,getDoc} from "firebase/firestore";
 import { ref } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 import { uploadBytes, getDownloadURL } from "firebase/storage";
@@ -24,6 +24,7 @@ const CreateBlog = (props) => {
   const [selectValue, setSelectValue] = useState('');
   const [agency, setAgency] = useState([]);
   const [budget, setBudget] = useState();
+  const [traveller,setTraveller] = useState({});
  
 
  const username = props.userId.displayName;
@@ -41,6 +42,13 @@ const CreateBlog = (props) => {
    }));
    setAgency(agencies);
   });
+  const docRef = doc(db,'travellers',currentUserId)
+  async function getTraveller(){
+      const docSnap = await getDoc(docRef);
+      setTraveller(docSnap.data());
+    // setLoadingState(true);
+}
+getTraveller();
 
  },[])
  
@@ -51,7 +59,7 @@ const CreateBlog = (props) => {
   /*console.log(props.userId); */
   const uploadBlog = () =>{
 
-     
+    const profileUrl= traveller.profileImage;
         if(imageFile==null)
           return;
           
@@ -75,7 +83,8 @@ const CreateBlog = (props) => {
                     writerId: currentUserId,
                     agencyName: selectValue,
                     budget: budget,
-                    email:email
+                    email:email,
+                    travellerImage: profileUrl
                   } 
             //    const docRef = doc(db,'blogs',`${currentUserId}/blogfolder/${new Date()}`)
            // const docRef = doc(db,'blogs',currentUserId);

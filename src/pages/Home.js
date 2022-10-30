@@ -7,6 +7,7 @@ import Footer from '../components/Footer'
 import { auth } from "../fire";
 import { signOut } from 'firebase/auth';
 import { onAuthStateChanged } from 'firebase/auth';
+import AgencySlider from '../components/AgencySlider';
 var isLoggedIn = false;
 const Home =()=>{
   const navigate = useNavigate();
@@ -46,7 +47,9 @@ console.log(isLoggedIn);
     return(<>
       <HeroSection/>
       <Cards/>
+      <AgencySlider/>
       <Footer/>
+      
 
       {userStatus && <button type='button' onClick={handleLogOut}>Log Out</button>}
     </>)

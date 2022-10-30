@@ -7,6 +7,7 @@ const RightViewComponent = (props)=>{
        const id = props.param;
        const writerName = props.writer;
        const eMail = props.mail;
+       const proc_url = props.imgUrl;
    const renderFunction = (post)=>{
 
       return (
@@ -34,7 +35,7 @@ const RightViewComponent = (props)=>{
       <br/>
       <div className="image-and-description">
       <div className="about-author">
-        <img className="author-profile-image" src="../images/nature1.jpg" />
+        <img className="author-profile-image" src={proc_url} />
       </div>
       <div className="name-email">
            <h3>Name = {writerName}</h3>

@@ -31,11 +31,9 @@ const Cards = ()=>{
                   text='Experience the 70 meters high bungee jumping in Pokhara.'
                    label='Pokhara'
                    path='/blogs'/> 
-                     <CardsItem src='images/travelpic5.jpg'
-                  text='Trek till the annapurna base camp'
-                   label='ABC'
-                   path='/blogs'/>  
                 </ul>
+           
+   
               
             </div>
          </div>
