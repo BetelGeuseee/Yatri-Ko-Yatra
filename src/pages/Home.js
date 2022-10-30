@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../App.css'
 import HeroSection from '../components/HeroSection'
 import { useNavigate } from "react-router-dom";
@@ -7,7 +7,6 @@ import Footer from '../components/Footer'
 import { auth } from "../fire";
 import { signOut } from 'firebase/auth';
 import { onAuthStateChanged } from 'firebase/auth';
-import AgencySlider from '../components/AgencySlider';
 var isLoggedIn = false;
 const Home =()=>{
   const navigate = useNavigate();
@@ -21,24 +20,28 @@ const Home =()=>{
       console.log('shirhska');
     } 
   }); */
+  useEffect(()=>{
+    onAuthStateChanged(auth,(user)=>{
 
-  onAuthStateChanged(auth,(user)=>{
+      
+      if(user){
+       
+         changeUserStatus(true);
+         isLoggedIn=true;
+  
+      }else{
+       
+         changeUserStatus(false);
+         isLoggedIn=false;
+      }
+    })
+  },[])
 
-    if(user){
-     
-       changeUserStatus(true);
-       isLoggedIn=true;
 
-    }else{
-     
-       changeUserStatus(false);
-       isLoggedIn=false;
-    }
-  })
-console.log(isLoggedIn);
   const handleLogOut = () =>{
     signOut(auth).then(() => {
        navigate('/signin')
+       window.location.reload(false);
     }).catch((error) => {
       alert('Could not signOut right now. Try again later!!!')
     });
@@ -47,7 +50,6 @@ console.log(isLoggedIn);
     return(<>
       <HeroSection/>
       <Cards/>
-      <AgencySlider/>
       <Footer/>
       
 
