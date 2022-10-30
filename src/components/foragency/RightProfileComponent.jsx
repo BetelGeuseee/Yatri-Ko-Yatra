@@ -9,6 +9,7 @@ import { onSnapshot, query,where } from "firebase/firestore";
 const RightProfileComponent = (props)=>{
    const [packages, setPackages] = useState([]);
    const [searchTerm, setSearchTerm] = useState('');
+   const [modal, setModal] = useState(false);
    const agencyId = props.agencyId;
    useEffect(()=>{
      
@@ -27,10 +28,13 @@ const RightProfileComponent = (props)=>{
    },[])
 
    
+   
 
    function renderFunction(pack_age){
            
          return(
+          <Link to={`/view-package-detail/${agencyId}/${pack_age.id}`} style={{textDecoration: 'none'}}>
+          
             <div className="p-cards">
               
             <div className="package-image-container">
@@ -38,11 +42,13 @@ const RightProfileComponent = (props)=>{
             </div>
             
                <h5 className="package-tag">{pack_age.packagePlace}</h5>
-               <h1>{pack_age.packageName}</h1>
+               <h1 className="pack-name">{pack_age.packageName}</h1>
                <p className="package-para">Price = {pack_age.packagePrice}</p>
                <button type="button" className="see-more-button"> View Details </button>
               
           </div>
+          </Link>
+         
          )
    }
 
@@ -63,10 +69,6 @@ const RightProfileComponent = (props)=>{
       }
     }).map(renderFunction)}
            
-            
-         
-           
-        
 
         </div>
     </div>)

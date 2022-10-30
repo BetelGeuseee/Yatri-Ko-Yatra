@@ -204,7 +204,7 @@ const LeftProfileComponent = (props)=>{
 
                   {comments.map(renderComment)}
                   
-                      <button type="button" onClick={modelToggle}>Cancel</button>
+                      <button type="button" onClick={modelToggle} className='comment-button'>Cancel</button>
                   </div>
             </div>
              
