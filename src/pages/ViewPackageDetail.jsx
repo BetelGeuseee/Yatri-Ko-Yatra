@@ -7,21 +7,25 @@ import '../components/components_css/ViewPackageDetail.css'
 import { auth } from "../fire";
 import { store } from "../fire";
 import { deleteObject} from "firebase/storage";
+import KhaltiCheckout from "khalti-checkout-web";
+import config from "../khalti/khaltiConfig";
 import { ref } from "firebase/storage";
+import InterestPackages from "../components/InterestPackages";
+
 
 const ViewPackageDetail = ()=>{
     const [pack_age,setPackage] = useState({});
     const [currentId , setCurrentId] = useState('');
 
-
+    
    const {id,aid} = useParams();
 
    useEffect(()=>{
-    if(auth.currentUser.uid.includes(aid)){
+   /* if(auth.currentUser.uid.includes(aid)){
         setCurrentId(true)
       }else{
         setCurrentId(false);
-      }
+      } */
     const packRef = doc(db,'packages',id)
     async function getPackage(){
           const docSnap = await getDoc(packRef);
@@ -51,8 +55,14 @@ const ViewPackageDetail = ()=>{
       })
      
    }
+   function buyPackage(){
+       let checkout = new KhaltiCheckout(config);
+       checkout.show({amount: `${(pack_age.packagePrice)}`});
+   }
 
-    return (<div className="view-containerrr">
+    return (
+      <div className="main-view-div-container">
+    <div className="view-containerrr">
         <div className="view-detal-container">
             <div className="pack-image-cont">
                 <img  className="pack-img" src={pack_age.packageImage} alt="Image is Loading"/>
@@ -63,14 +73,18 @@ const ViewPackageDetail = ()=>{
             <br/>
             <p>{pack_age.packageDescription} </p>
 
-            <button type="button">Buy This Package</button>
-            {currentId && <button type="button" onClick={deletePackage}>Delete Package</button>}
+            <button type="button" className="buy-package-button" onClick={buyPackage}>Buy This Package</button>
+         
         </div>
          
         
         
+    </div>
+    <div className="google-map-container">
+            <InterestPackages/>
+    </div>
     </div>)
 
 }
-
+//   {currentId && <button type="button" onClick={deletePackage}>Delete Package</button>}
 export default ViewPackageDetail;

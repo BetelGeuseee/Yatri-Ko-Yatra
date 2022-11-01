@@ -26,6 +26,13 @@ const LeftProfileComponent = (props)=>{
     const [isCurrentId, setCurrentId] = useState(false);
     const [comment,setComment] = useState('');
     const [comments,setComments] = useState([]);
+     const [one,setOne] = useState(0);
+     const [two,setTwo] = useState(0);
+     const [three,setThree] = useState(0);
+     const [four,setFour] = useState(0);
+     const [five,setFive] = useState(0);
+     const [zero,setZero] = useState(0);
+
    const agency = props.agency;
 
    if(model){
@@ -34,7 +41,11 @@ const LeftProfileComponent = (props)=>{
     document.body.classList.remove('active-model')
    }
 
+   
+
    useEffect(()=>{
+
+    
 
     if(auth.currentUser.uid.includes(props.agencyId)){
       setCurrentId(true)
@@ -51,8 +62,17 @@ const LeftProfileComponent = (props)=>{
       }))
       setComments(com)
     })
+   
+   // calculateRating();
+
    },[])
 
+   function calculateRating(){
+
+         const value = (5*five+4*four+3*three+2*two+1*one+0*zero)/(one+two+three+four+five)
+         
+         setRating(value);
+   }
   
    const ratingSetter = (rate)=>{
     setRating(rate)
@@ -138,7 +158,7 @@ const LeftProfileComponent = (props)=>{
            <p className="desc">Contact Us = {agency.agencyNumber}</p>
            <p className="desc">Email = {agency.agencyEmail}</p>
            <br/>
-           <p> Rating = <span><Rating initialValue={agency.rating} readonly={true} size={40} /> </span> </p>
+           <p> Rating = <span><Rating initialValue={agency.rating} readonly={true} size={40} allowFraction={true}/> </span> </p>
            <br/>
          {isCurrentId &&  <button type="button" onClick={toggleModal}>Create A Package</button>}
            

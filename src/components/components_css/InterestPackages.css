@@ -1,0 +1,28 @@
+
+.title-cont{
+    margin-top: 2px;
+    margin-left: 4px;
+}
+.checkbox-container{
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+  padding: 10px;
+}
+.checkbox-div{
+    padding: 10px;
+}
+
+.search-package-button{
+    width: 100px;
+    size: 50px;
+}
+.search-button-cont{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+.check-input{
+    width: 25px;
+    height: 25px;
+}
