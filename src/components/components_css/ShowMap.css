@@ -1,0 +1,36 @@
+.main-showmap-cont{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.google-map-cont{
+    width: 100%;
+    height: 1000px;
+
+}
+.input-fields-map{
+    display: flex;
+    flex-direction: row;
+   
+}
+.input-origin{
+    width: 200px;
+    height: 50px;
+    padding: 10px;
+}
+.input-destination{
+    width: 200px;
+    height: 50px;
+    padding: 10px;
+    margin-left: 8px;
+}
+.auto-complete-inputs{
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
+.route-place{
+    margin-left: 8px;
+    width: 100px;
+}

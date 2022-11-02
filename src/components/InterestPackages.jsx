@@ -5,13 +5,40 @@ import { db } from "../fire";
 import { collection,where,query,onSnapshot } from "firebase/firestore";
 import { useEffect } from "react";
 
+const PackageCard = (props) =>{
+
+ 
+  function renderFunction (pa){
+    <div className="p-cards">
+              
+    <div className="package-image-container">
+       <img src={pa.packageImage} className="package-image"/>
+    </div>
+    
+       <h5 className="package-tag">{pa.packagePlace}</h5>
+       <h1 className="pack-name">{pa.packageName}</h1>
+       <p className="package-para">Price = {pa.packagePrice}</p>
+       <button type="button" className="see-more-button"> View Details </button>
+      
+  </div>
+
+  }
+
+
+  return (
+    <div className="packages-cards">
+
+      {props.packa.map(renderFunction)}
+   
+</div>)
+}
+
 const InterestPackages = ()=>{
 
    const [interests,setInterests] = useState([]); 
    const [pack_ages ,setPack_ages] = useState([]);
+   const [displayCards,setDisplayCards] = useState(false);
    const arr = []
-
-   
 
    const searchPackages = ()=>{
     const postRef  = collection(db,'packages');
@@ -23,27 +50,25 @@ const InterestPackages = ()=>{
             ...doc.data(),
           }))
         setPack_ages((current) => [...current,pack])
+      
         })
        });
+      // setDisplayCards(true);
    }
 
-console.log(pack_ages)
     function handleChange(e){
            const value = e.target.value;
            const checked = e.target.checked;
-
-          
-
+           console.log(value,checked)
            if(checked){
-             setInterests([
+               setInterests([
                 ...interests,value
-             ]);
+               ])
            }else{
             setInterests(interests.filter((e)=> (e!==value)))
             setPack_ages([])
            }
     }
-    console.log(interests);
     return (<div>
 
      <h2 className="title-cont">Search Packages According To Your Interest</h2>
@@ -81,8 +106,9 @@ console.log(pack_ages)
      </div>
      <br/>
      <hr/>
-
+   
+     {displayCards && <PackageCard packa= {pack_ages}/>}
     </ div>)
 }
-
+// 
 export default InterestPackages;

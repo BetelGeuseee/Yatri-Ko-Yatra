@@ -15,6 +15,7 @@ import CreateBlog from './pages/CreateBlog';
 import ViewBlog from './pages/ViewBlog';
 import AgencyProfile from './pages/AgencyProfile';
 import ViewPackageDetail from './pages/ViewPackageDetail';
+import ShowMap from './pages/ShowMap';
 
 
 
@@ -40,6 +41,7 @@ function App() {
                  <Route path = '/view-blog/:id' element = {<ViewBlog/>} />
                  <Route path= '/create-blog' element = {<CreateBlog userId={user}/>}/>
                  <Route path='/agency-profile/:id' element = {<AgencyProfile userId ={user}/>} />
+                 <Route path='/show-map/:loc' element = {<ShowMap/>} />
                  <Route path = '/view-package-detail/:aid/:id' element = {<ViewPackageDetail/>} />
              </Routes>
        </Router>
